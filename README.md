@@ -1,111 +1,97 @@
-# 🌎 GeoIP API — Express + CORS
+# GeoLog – API de Geolocalização por IP
 
-Uma API simples em Node.js para identificar **cidade, estado e país** do visitante usando o IP.
-
-## 🚀 Tecnologias
-
-- **Node.js**
-- **Express**
-- **CORS**
-- **geoip-lite** (banco local de geolocalização por IP)
+Uma API simples em **Node.js + Express + CORS** que identifica cidade, estado e país com base no **IP do provedor de internet (ISP)** usando GeoIP.
 
 ---
 
-## 📦 Instalação
+## 🚀 Funcionalidades
+
+- 📌 Detecta IP do visitante automaticamente
+- 🌎 Retorna **cidade, estado e país**
+- 🔧 Endpoint para consultar **IP manualmente**
+- 📡 Dados baseados em **GeoIP (localização aproximada)**
+- 🛡 Suporte a CORS
+
+---
+
+## 📥 Instalação
 
 ```bash
 npm install
-```
-
----
-
-## ▶️ Executar a API
-
-```bash
 npm start
-```
-
-A API rodará em:
-
-```
-http://localhost:3000
 ```
 
 ---
 
 ## 📡 Endpoints
 
-### 🟦 GET /
+### 🔹 `GET /`
+Retorna o status da API.
 
-Retorna status simples da API.
+### 🔹 `GET /geo`
+Retorna as informações de geolocalização do visitante.
 
-```
-GET http://localhost:3000/
-```
-
-Resposta:
-
+**Exemplo de retorno:**
 ```json
 {
-  "message": "GeoIP API online"
-}
-```
-
----
-
-### 🟩 GET /geo
-
-Retorna informações do **IP do visitante** automaticamente.
-
-```
-GET http://localhost:3000/geo
-```
-
-Resposta:
-
-```json
-{
-  "ip": "187.x.x.x",
-  "city": "São Paulo",
-  "state": "SP",
+  "ip": "177.37.148.4",
+  "city": "Fortaleza",
+  "state": "CE",
   "country": "BR"
 }
 ```
 
----
+### 🔹 `GET /geo/:ip`
+Consulta qualquer IP manualmente.
 
-### 🟧 GET /geo/:ip
-
-Retorna a geolocalização de um IP específico.
-
+**Exemplo:**
 ```
-GET http://localhost:3000/geo/8.8.8.8
-```
-
-Resposta:
-
-```json
-{
-  "ip": "8.8.8.8",
-  "city": "Mountain View",
-  "state": "CA",
-  "country": "US"
-}
+/geo/8.8.8.8
 ```
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📌 Nota importante sobre GeoIP
+Esta API usa **geolocalização baseada no provedor (ISP)**.
+Isso significa que:
+
+- A cidade e o estado retornados são onde o **provedor registrou o bloco de IPs**;
+- **Não** representa a localização exata da pessoa;
+- É o funcionamento normal de **todas as APIs GeoIP**, incluindo:
+  - MaxMind
+  - ipinfo
+  - ipstack
+  - ipgeolocation
+
+GeoIP **não usa GPS** e não mostra:
+❌ Rua
+❌ Bairro
+❌ Coordenadas exatas
+❌ Endereço da casa
+
+---
+
+## 🛠 Tecnologias usadas
+- Node.js
+- Express
+- CORS
+- geoip-lite
+
+---
+
+## 📤 Deploy no Railway
+1. Crie um projeto no Railway
+2. Conecte seu repositório GitHub
+3. Railway detecta Node.js automaticamente
+4. Use o comando:
 
 ```
-geoip-api/
-├── index.js
-├── package.json
-└── README.md
+npm start
 ```
+
+5. Ao finalizar, o Railway gera uma URL pública
 
 ---
 
 ## 📄 Licença
-
-Livre para uso e modificação.
+MIT License
